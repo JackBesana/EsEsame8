@@ -13,16 +13,14 @@ public class ThDistribuisci extends Thread {
 
     DatiCondivisi datiC = new DatiCondivisi();
 
-    public void ThGenera(DatiCondivisi ptrDati) {
+    public ThDistribuisci(DatiCondivisi ptrDati) {
         datiC = ptrDati;
     }
 
     @Override
     public void run() {
         for (int i = 0; i < 3; i++) {
-            System.out.println("Distribuisci1");
             datiC.chiediPermesso1();
-            System.out.println("Distribuisci2");
             datiC.distribuisci();
             datiC.daiPermesso2();
         }

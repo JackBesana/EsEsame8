@@ -36,17 +36,16 @@ public class DatiCondivisi {
         } else {
             valoreCarta = (float) 0.5;
         }
-        System.out.println("Sono in dati condivisi");
     }
 
     public synchronized void distribuisci() {
         System.out.println("Carta distribuita al giocatore 1");
-        System.out.println("Il valore della carta è " + cartaGenerata);
+        System.out.println("Il numero della carta è " + cartaGenerata);
     }
 
     public synchronized void calcola() {
         totale += valoreCarta;
-        System.out.println("Sto calcolando");
+        System.out.println("il totale è: "+totale);
     }
 
     public void daiPermesso1() {

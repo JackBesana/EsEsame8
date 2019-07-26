@@ -13,16 +13,14 @@ public class ThCalcola extends Thread {
 
     DatiCondivisi datiC = new DatiCondivisi();
 
-    public void ThGenera(DatiCondivisi ptrDati) {
+    public ThCalcola(DatiCondivisi ptrDati) {
         datiC = ptrDati;
     }
 
     @Override
     public void run() {
         for (int i = 0; i < 3; i++) {
-            System.out.println("Calcola1");
             datiC.chiediPermesso2();
-            System.out.println("Calcola2");
             datiC.calcola();
             datiC.daiPermesso3();
         }

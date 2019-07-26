@@ -22,9 +22,9 @@ public class EsEsame8 {
             // TODO code application logic here
             DatiCondivisi datiC = new DatiCondivisi();
             
-            ThGenera th1 = new ThGenera();
-            ThDistribuisci th2 = new ThDistribuisci();
-            ThCalcola th3 = new ThCalcola();
+            ThGenera th1 = new ThGenera(datiC);
+            ThDistribuisci th2 = new ThDistribuisci(datiC);
+            ThCalcola th3 = new ThCalcola(datiC);
             
             th1.start();
             th2.start();
