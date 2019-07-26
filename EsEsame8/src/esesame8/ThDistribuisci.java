@@ -12,15 +12,18 @@ package esesame8;
 public class ThDistribuisci extends Thread {
 
     DatiCondivisi datiC = new DatiCondivisi();
+    int nGiocatori;
 
-    public ThDistribuisci(DatiCondivisi ptrDati) {
+    public ThDistribuisci(DatiCondivisi ptrDati, int n) {
         datiC = ptrDati;
+        nGiocatori = n;
     }
 
     @Override
     public void run() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < nGiocatori; i++) {
             datiC.chiediPermesso1();
+            System.out.println("Carta distribuita al giocatore " + (i+1));
             datiC.distribuisci();
             datiC.daiPermesso2();
         }

@@ -5,6 +5,7 @@
  */
 package esesame8;
 
+import java.util.Scanner;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -18,30 +19,31 @@ public class EsEsame8 {
      * @param args the command line arguments
      */
     public static void main(String[] args) {
+
         try {
             // TODO code application logic here
+            Scanner input = new Scanner(System.in);
             DatiCondivisi datiC = new DatiCondivisi();
-            
-            ThGenera th1 = new ThGenera(datiC);
-            ThDistribuisci th2 = new ThDistribuisci(datiC);
-            ThCalcola th3 = new ThCalcola(datiC);
-            
+
+            System.out.println("Inserisci il numero dei giocatori");
+            int n = input.nextInt();
+
+            ThGenera th1 = new ThGenera(datiC, n);
+            ThDistribuisci th2 = new ThDistribuisci(datiC, n);
+            ThCalcola th3 = new ThCalcola(datiC, n);
+
             th1.start();
             th2.start();
             th3.start();
-            
+
             th1.join();
             th2.join();
             th3.join();
-            
-            if(datiC.totale==7.5){
-                System.out.println("HAI VINTO");
-            } else{
-                System.out.println("HAI PERSO");
-            }
+
+            datiC.calcolaVincitore();
+
         } catch (InterruptedException ex) {
             Logger.getLogger(EsEsame8.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 }

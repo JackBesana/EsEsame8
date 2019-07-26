@@ -5,6 +5,7 @@
  */
 package esesame8;
 
+import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
 import java.util.logging.Level;
@@ -15,6 +16,9 @@ import java.util.logging.Logger;
  * @author besan
  */
 public class DatiCondivisi {
+
+    float[] v = new float[3];
+    ArrayList<Float> vTot = new ArrayList<Float>();
 
     int cartaGenerata = 0;
     float valoreCarta = 0, totale = 0;
@@ -30,32 +34,56 @@ public class DatiCondivisi {
 
     public synchronized void genera() {
         Random rand = new Random();
-        cartaGenerata = rand.nextInt(10) + 1;
-        if (cartaGenerata < 8) {
-            valoreCarta = cartaGenerata;
-        } else {
-            valoreCarta = (float) 0.5;
+        for (int i = 0; i < 3; i++) {
+            cartaGenerata = rand.nextInt(10) + 1;
+            if (cartaGenerata < 8) {
+                valoreCarta = cartaGenerata;
+            } else {
+                valoreCarta = (float) 0.5;
+            }
+            v[i] = valoreCarta;
         }
+
     }
 
     public synchronized void distribuisci() {
-        System.out.println("Carta distribuita al giocatore 1");
-        System.out.println("Il numero della carta è " + cartaGenerata);
+        for (int i = 0; i < 3; i++) {
+            System.out.println("Il numero della carta è " + v[i]);
+        }
     }
 
     public synchronized void calcola() {
-        totale += valoreCarta;
-        System.out.println("il totale è: "+totale);
+        for (int i = 0; i < 3; i++) {
+            totale += v[i];
+        }
+        System.out.println("il totale è: " + totale);
+        vTot.add(totale);
+        totale = 0;
+    }
+
+    public synchronized void calcolaVincitore() {
+        float massimo = 0;
+        for (int i = 0; i < vTot.size(); i++) {
+            if ((vTot.get(i) > massimo) && (vTot.get(i) <= 7.5)) {
+                massimo = vTot.get(i);
+            }
+        }
+
+        for (int i = 0; i < vTot.size(); i++) {
+            if (vTot.get(i) == massimo) {
+                System.out.println("Il giocatore " + (i + 1) + " ha vinto");
+            } else {
+                System.out.println("Il giocatore " + (i + 1) + " ha perso");
+            }
+        }
     }
 
     public void daiPermesso1() {
         sem1.release();
-        
     }
 
     public void chiediPermesso1() {
         try {
-            
             sem1.acquire();
         } catch (InterruptedException ex) {
             Logger.getLogger(DatiCondivisi.class.getName()).log(Level.SEVERE, null, ex);

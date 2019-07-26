@@ -12,14 +12,16 @@ package esesame8;
 public class ThCalcola extends Thread {
 
     DatiCondivisi datiC = new DatiCondivisi();
+    int nGiocatori;
 
-    public ThCalcola(DatiCondivisi ptrDati) {
+    public ThCalcola(DatiCondivisi ptrDati, int n) {
         datiC = ptrDati;
+        nGiocatori = n;
     }
 
     @Override
     public void run() {
-        for (int i = 0; i < 3; i++) {
+        for (int i = 0; i < nGiocatori; i++) {
             datiC.chiediPermesso2();
             datiC.calcola();
             datiC.daiPermesso3();
