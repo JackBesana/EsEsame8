@@ -5,6 +5,10 @@
  */
 package esesame8;
 
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+
 /**
  *
  * @author besan
@@ -22,9 +26,13 @@ public class ThGenera extends Thread {
     @Override
     public void run() {
         for (int i = 0; i < nGiocatori; i++) {
-            datiC.chiediPermesso3();
-            datiC.genera();
-            datiC.daiPermesso1();
+            try {
+                datiC.chiediPermesso3();
+                datiC.genera();
+                datiC.daiPermesso1();
+            } catch (IOException ex) {
+                Logger.getLogger(ThGenera.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     }
 }

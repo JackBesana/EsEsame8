@@ -5,6 +5,8 @@
  */
 package esesame8;
 
+import java.io.BufferedReader;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Random;
 import java.util.concurrent.Semaphore;
@@ -17,7 +19,7 @@ import java.util.logging.Logger;
  */
 public class DatiCondivisi {
 
-    float[] v = new float[3];
+    ArrayList<Float> v = new ArrayList<Float>();
     ArrayList<Float> vTot = new ArrayList<Float>();
 
     int cartaGenerata = 0;
@@ -32,29 +34,38 @@ public class DatiCondivisi {
         sem3 = new Semaphore(1);
     }
 
-    public synchronized void genera() {
+    public synchronized void genera() throws IOException {
         Random rand = new Random();
-        for (int i = 0; i < 3; i++) {
+        BufferedReader console = new BufferedReader(new java.io.InputStreamReader(System.in));
+        v.clear();
+        boolean finito = true;
+        while (finito) {
+            int i = 0;
             cartaGenerata = rand.nextInt(10) + 1;
             if (cartaGenerata < 8) {
                 valoreCarta = cartaGenerata;
             } else {
                 valoreCarta = (float) 0.5;
             }
-            v[i] = valoreCarta;
+            v.add(valoreCarta);
+            i++;
+            System.out.println("Vuoi generare ancora una carta? si/no");
+            String r = console.readLine();
+            if (r.equals("no")) {
+                finito = false;
+            }
         }
-
     }
 
     public synchronized void distribuisci() {
-        for (int i = 0; i < 3; i++) {
-            System.out.println("Il numero della carta è " + v[i]);
+        for (int i = 0; i < v.size(); i++) {
+            System.out.println("Il numero della carta è " + v.get(i));
         }
     }
 
     public synchronized void calcola() {
-        for (int i = 0; i < 3; i++) {
-            totale += v[i];
+        for (int i = 0; i < v.size(); i++) {
+            totale += v.get(i);
         }
         System.out.println("il totale è: " + totale);
         vTot.add(totale);
