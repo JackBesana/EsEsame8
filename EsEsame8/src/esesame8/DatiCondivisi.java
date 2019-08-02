@@ -49,6 +49,7 @@ public class DatiCondivisi {
             }
             v.add(valoreCarta);
             i++;
+            System.out.println("La carta generata è "+valoreCarta);
             System.out.println("Vuoi generare ancora una carta? si/no");
             String r = console.readLine();
             if (r.equals("no")) {
